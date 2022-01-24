@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Outlet,
-  Navigate,
-} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { Routes, Route, Outlet, Navigate, useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
 import Header from './components/header/Header';
@@ -16,7 +12,7 @@ import SearchScreen from './screens/searchScreen/SearchScreen';
 
 import './_app.scss';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const [toggleSidebar, setToggleSideBar] = useState(false);
 
   const handleToggleSidebar = () => {
@@ -40,18 +36,24 @@ const Layout = ({ children }) => {
 };
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<HomeScreen />} />
-          <Route path='search' element={<SearchScreen />} />
-        </Route>
-        <Route path='/auth' element={<LoginScreen />} />
+  const navigate = useNavigate();
+  const { accessToken, loading } = useSelector((state) => state.auth);
 
-        <Route path='*' element={<Navigate to='/' />} />
-      </Routes>
-    </BrowserRouter>
+  useEffect(() => {
+    if (!loading && !accessToken) {
+      navigate('/auth');
+    }
+  }, [accessToken, loading, navigate]);
+  return (
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route index element={<HomeScreen />} />
+        <Route path='search' element={<SearchScreen />} />
+      </Route>
+      <Route path='/auth' element={<LoginScreen />} />
+
+      <Route path='*' element={<Navigate to='/' />} />
+    </Routes>
   );
 };
 
