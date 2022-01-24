@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  Navigate,
+} from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
 import Header from './components/header/Header';
 import SideBar from './components/sidebar/Sidebar';
 import HomeScreen from './screens/homeScreen/HomeScreen';
 import LoginScreen from './screens/loginScreen/LoginScreen';
+import SearchScreen from './screens/searchScreen/SearchScreen';
 
 import './_app.scss';
 
-const App = () => {
+const Layout = ({ children }) => {
   const [toggleSidebar, setToggleSideBar] = useState(false);
 
   const handleToggleSidebar = () => {
@@ -24,11 +32,26 @@ const App = () => {
           handleToggleSidebar={handleToggleSidebar}
         />
         <Container fluid className='app__main '>
-          <HomeScreen />
+          <Outlet />
         </Container>
       </div>
-      {/* <LoginScreen /> */}
     </>
+  );
+};
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<HomeScreen />} />
+          <Route path='search' element={<SearchScreen />} />
+        </Route>
+        <Route path='/auth' element={<LoginScreen />} />
+
+        <Route path='*' element={<Navigate to='/' />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
