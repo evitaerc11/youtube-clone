@@ -4,3 +4,7 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 
 export const LOGOUT = 'LOGOUT';
 export const LOAD_PROFILE = 'LOAD_PROFILE';
+
+export const HOME_VIDEO_REQUEST = 'HOME_VIDEO_REQUEST';
+export const HOME_VIDEO_SUCCESS = 'HOME_VIDEO_SUCCESS';
+export const HOME_VIDEO_FAIL = 'HOME_VIDEO_FAIL';
