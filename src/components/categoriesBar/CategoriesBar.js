@@ -25,7 +25,11 @@ const CategoriesBar = () => {
 
   const handleClick = (value) => {
     setActiveEle(value);
+    // if (value === 'All') {
+    //   dispatch(getPopularVideos());
+    // } else {
     dispatch(getVideosByCategory(value));
+    // }
   };
 
   return (

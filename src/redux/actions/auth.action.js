@@ -16,8 +16,11 @@ export const login = () => async (dispatch) => {
     const provider = new GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/youtube.force-ssl');
     const res = await signInWithPopup(auth, provider);
+    console.log(res);
+    const credential = GoogleAuthProvider.credentialFromResult(res);
+    const accessToken = credential.accessToken;
 
-    const accessToken = res.user.accessToken;
+    // const accessToken = res.user.accessToken;
 
     const profile = {
       name: res.user.displayName,

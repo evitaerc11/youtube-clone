@@ -11,6 +11,7 @@ import LoginScreen from './screens/loginScreen/LoginScreen';
 import SearchScreen from './screens/searchScreen/SearchScreen';
 
 import './_app.scss';
+import WatchScreen from './screens/watchScreen/WatchScreen';
 
 const Layout = () => {
   const [toggleSidebar, setToggleSideBar] = useState(false);
@@ -49,6 +50,7 @@ const App = () => {
       <Route path='/' element={<Layout />}>
         <Route index element={<HomeScreen />} />
         <Route path='search' element={<SearchScreen />} />
+        <Route path='watch/:id' element={<WatchScreen />} />
       </Route>
       <Route path='/auth' element={<LoginScreen />} />
 
